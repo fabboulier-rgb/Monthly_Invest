@@ -1,0 +1,55 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h1 { text-align: center; margin-bottom: 5px; }
+.subtitle { text-align: center; color: #666; margin-top: 0; margin-bottom: 30px; }
+
+/* Scoreboard Layout */
+.scoreboard {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+}
+
+.medal-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    width: 30%;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.gold { border-top: 5px solid #FFD700; transform: scale(1.1); margin-bottom: 10px; }
+.silver { border-top: 5px solid #C0C0C0; }
+.bronze { border-top: 5px solid #CD7F32; }
+
+.medal-card h2 { margin: 0; font-size: 2rem; }
+.medal-card h3 { margin: 10px 0 5px 0; font-size: 1rem; }
+.medal-card p { margin: 0; font-size: 0.8rem; color: #777; }
+
+/* Asset List */
+.asset-item {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.asset-name { font-weight: bold; }
+.asset-score { color: #007bff; font-weight: bold; }
+ 
