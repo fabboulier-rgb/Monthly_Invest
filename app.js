@@ -87,23 +87,28 @@ fetch('data.json')
             document.getElementById('score3').innerText = "Score: " + assets[2].score.toFixed(1);
         }
 
-        // 4. NOUVEAU : Mise à jour de la liste complète avec le rapport IA
+                // 4. Mise à jour de la liste complète avec le rapport IA
         const assetListContainer = document.getElementById('asset-list');
         assetListContainer.innerHTML = ''; 
 
         assets.forEach(asset => {
             const itemDiv = document.createElement('div');
             itemDiv.className = 'asset-item';
-            // Nouveau design de carte pour la liste
+            
+            // LA MAGIE EST ICI : On annule l'alignement horizontal forcé
+            itemDiv.style.display = 'block'; 
+            
             itemDiv.innerHTML = `
-                <div class="asset-header" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 8px;">
-                    <span class="asset-name" style="font-weight: bold; font-size: 1rem;">${asset.name}</span>
-                    <div style="text-align: right;">
-                        <span class="asset-score" style="color: #007bff; font-weight: bold; display: block; font-size: 1.1rem;">${asset.score.toFixed(1)} pts</span>
-                        <span style="font-size: 0.75rem; color: #666;">Confiance: ${asset.confidence}%</span>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;">
+                    <div style="font-weight: bold; font-size: 0.95rem; width: 65%; padding-right: 10px; line-height: 1.3;">
+                        ${asset.name}
+                    </div>
+                    <div style="text-align: right; width: 35%;">
+                        <div style="color: #007bff; font-weight: bold; font-size: 1.1rem;">${asset.score.toFixed(1)} pts</div>
+                        <div style="font-size: 0.75rem; color: #888; margin-top: 3px;">Confiance: ${asset.confidence}%</div>
                     </div>
                 </div>
-                <div class="ai-insight" style="font-size: 0.85rem; color: #444; line-height: 1.4;">
+                <div style="font-size: 0.85rem; color: #444; line-height: 1.5;">
                     <strong>🤖 IA :</strong> <em>${asset.insight}</em>
                 </div>
             `;
@@ -111,6 +116,5 @@ fetch('data.json')
         });
     })
     .catch(error => {
-        document.getElementById('asset-list').innerHTML = "<p>Erreur ou données en cours de synchronisation...</p>";
+        document.getElementById('asset-list').innerHTML = "<p>Données en cours de synchronisation. Revenez dans 2 minutes !</p>";
     });
- 
