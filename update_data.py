@@ -43,7 +43,6 @@ ASSETS_MAPPING = {
 
 results = []
 
-# On parcourt notre dictionnaire
 for ticker, custom_name in ASSETS_MAPPING.items():
     try:
         stock = yf.Ticker(ticker)
@@ -60,7 +59,7 @@ for ticker, custom_name in ASSETS_MAPPING.items():
 
         results.append({
             "id": ticker,
-            "name": custom_name,  # <-- C'est ici que la magie opère !
+            "name": f"{custom_name} ({ticker})",  # <-- L'ajout automatique des parenthèses est ici !
             "price": float(price),
             "high52": float(high52),
             "ma50": float(ma50),
@@ -69,7 +68,6 @@ for ticker, custom_name in ASSETS_MAPPING.items():
     except Exception as e:
         print(f"Erreur avec {ticker}: {e}")
 
-# Sauvegarde des données
 with open('data.json', 'w') as f:
     json.dump(results, f)
  
