@@ -2,17 +2,49 @@ import yfinance as yf
 import json
 import pandas as pd
 
-# Votre liste complète d'actifs
-tickers = [
-    "SPY", "URTH", "MCHI", "VGK", "VWO", "VYM", 
-    "BTC-USD", "GC=F", "SI=F", "EURHKD=X", "JPYHKD=X",
-    "AAPL", "MSFT", "AMZN", "JNJ", "JPM",
-    "MC.PA", "ASML.AS", "SAP.DE", "TTE.PA", "NOVO-B.CO",
-    "0700.HK", "9988.HK", "0005.HK", "1211.HK", "1299.HK"
-]
+# Dictionnaire associant le symbole boursier à votre nom personnalisé
+ASSETS_MAPPING = {
+    # --- LES ETFS & MACRO ---
+    "SPY": "[ETF] - S&P 500",
+    "URTH": "[ETF] - World",
+    "MCHI": "[ETF] - China & HK",
+    "VGK": "[ETF] - Europe",
+    "VWO": "[ETF] - Emerging Markets",
+    "VYM": "[ETF] - Dividends",
+    
+    # --- CRYPTO, FOREX & MÉTAUX ---
+    "BTC-USD": "[CRYPTO] - Bitcoin",
+    "GC=F": "[METAL] - Gold",
+    "SI=F": "[METAL] - Silver",
+    "EURHKD=X": "[FOREX] - EUR/HKD",
+    "JPYHKD=X": "[FOREX] - JPY/HKD",
+
+    # --- ACTIONS US ---
+    "AAPL": "[US] - Apple",
+    "MSFT": "[US] - Microsoft",
+    "AMZN": "[US] - Amazon",
+    "JNJ": "[US] - Johnson & Johnson",
+    "JPM": "[US] - JPMorgan",
+
+    # --- ACTIONS EUROPE ---
+    "MC.PA": "[EU] - LVMH",
+    "ASML.AS": "[EU] - ASML",
+    "SAP.DE": "[EU] - SAP",
+    "TTE.PA": "[EU] - TotalEnergies",
+    "NOVO-B.CO": "[EU] - Novo Nordisk",
+
+    # --- ACTIONS HONG KONG ---
+    "0700.HK": "[HK] - Tencent",
+    "9988.HK": "[HK] - Alibaba",
+    "0005.HK": "[HK] - HSBC",
+    "1211.HK": "[HK] - BYD",
+    "1299.HK": "[HK] - AIA Group"
+}
 
 results = []
-for ticker in tickers:
+
+# On parcourt notre dictionnaire
+for ticker, custom_name in ASSETS_MAPPING.items():
     try:
         stock = yf.Ticker(ticker)
         hist = stock.history(period="1y")
@@ -23,13 +55,12 @@ for ticker in tickers:
         ma50 = hist['Close'].rolling(window=50).mean().iloc[-1]
         ma200 = hist['Close'].rolling(window=200).mean().iloc[-1]
 
-        # Sécurité si historique trop court
         if pd.isna(ma200): ma200 = hist['Close'].mean()
         if pd.isna(ma50): ma50 = hist['Close'].mean()
 
         results.append({
             "id": ticker,
-            "name": ticker,
+            "name": custom_name,  # <-- C'est ici que la magie opère !
             "price": float(price),
             "high52": float(high52),
             "ma50": float(ma50),
@@ -38,5 +69,7 @@ for ticker in tickers:
     except Exception as e:
         print(f"Erreur avec {ticker}: {e}")
 
+# Sauvegarde des données
 with open('data.json', 'w') as f:
     json.dump(results, f)
+ 
