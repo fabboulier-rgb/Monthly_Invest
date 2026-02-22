@@ -25,6 +25,9 @@ ASSETS_MAPPING = {
     "AMZN": "[US] - Amazon",
     "JNJ": "[US] - Johnson & Johnson",
     "JPM": "[US] - JPMorgan",
+    "BA": "[US] - Boeing",
+    "ELAN": "[US] - Elanco Animal Health",
+    "TEVA": "[US] - Teva",
 
     # --- ACTIONS EUROPE ---
     "MC.PA": "[EU] - LVMH",
@@ -32,13 +35,19 @@ ASSETS_MAPPING = {
     "SAP.DE": "[EU] - SAP",
     "TTE.PA": "[EU] - TotalEnergies",
     "NOVO-B.CO": "[EU] - Novo Nordisk",
+    "AI.PA": "[EU] - Air Liquide",
 
     # --- ACTIONS HONG KONG ---
     "0700.HK": "[HK] - Tencent",
     "9988.HK": "[HK] - Alibaba",
     "0005.HK": "[HK] - HSBC",
     "1211.HK": "[HK] - BYD",
-    "1299.HK": "[HK] - AIA Group"
+    "1299.HK": "[HK] - AIA Group",
+    "3988.HK": "[HK] - Bank of China",
+    "0267.HK": "[HK] - CITIC",
+    "0017.HK": "[HK] - New World Dev",
+    "0382.HK": "[HK] - Edvantage Group",
+    "0941.HK": "[HK] - China Mobile"
 }
 
 results = []
@@ -59,7 +68,7 @@ for ticker, custom_name in ASSETS_MAPPING.items():
 
         results.append({
             "id": ticker,
-            "name": f"{custom_name} ({ticker})",  # <-- L'ajout automatique des parenthèses est ici !
+            "name": f"{custom_name} ({ticker})",
             "price": float(price),
             "high52": float(high52),
             "ma50": float(ma50),
@@ -70,4 +79,3 @@ for ticker, custom_name in ASSETS_MAPPING.items():
 
 with open('data.json', 'w') as f:
     json.dump(results, f)
- 
